@@ -1,6 +1,6 @@
 {
   "host": "localhost",
   "user": "root",
-  "password": "root",
-  "database": "test"
+  "password": "",
+  "database": "nodejs_api"
 }
