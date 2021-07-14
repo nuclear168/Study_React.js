@@ -7,7 +7,7 @@ exports.allProduct = async (req, res) => {
 
     for (const i in productResult) {
       let productFormat = {
-        id_material: `K000${productResult[i].id_prod}`,
+        id_product: `K000${productResult[i].id_prod}`,
         process: productResult[i].process,
         description: productResult[i].description,
         code: productResult[i].code,
@@ -48,7 +48,7 @@ exports.getIdProduct = async (req, res) => {
 
     for (const i in productResult) {
       let productFormat = {
-        id_material: `K000${productResult[i].id_prod}`,
+        id_product: `K000${productResult[i].id_prod}`,
         process: productResult[i].process,
         description: productResult[i].description,
         code: productResult[i].code,
@@ -87,7 +87,7 @@ exports.getLastProductId = async (req, res) => {
       const productResult = await productModels.getAllProduct();
       const lastProductResult = productResult[productResult.length -1];
       const productFormat = {
-        id_material: `K000${lastProductResult.id_prod}`,
+        id_product: `K000${lastProductResult.id_prod}`,
         process: lastProductResult.process,
         description: lastProductResult.description,
         code: lastProductResult.code,
