@@ -14,7 +14,7 @@ exports.allMaterial = async (req, res) => {
         id_material: `R000${materialResult[i].id_material}`,
         description: materialResult[i].description,
         origin: materialResult[i].origin,
-        dimension: materialResult[i].dimension,
+        weight: materialResult[i].weight,
         seller: materialResult[i].saler,
         amount: materialResult[i].amount,
         price: materialResult[i].price,
@@ -23,9 +23,9 @@ exports.allMaterial = async (req, res) => {
           name: materialResult[i].name_partner,
           percent: materialResult[i].percent
         }],
-        id_product: [{
-          k_code: `K000${materialResult[i].id_prod}`
-        }],
+        kcode: [
+          `K000${materialResult[i].id_prod}`
+        ],
         status: materialResult[i].status,
         remark: materialResult[i].remark,
         added_timestamp: materialResult[i].last_added
@@ -41,7 +41,7 @@ exports.allMaterial = async (req, res) => {
     //     no: materialResult[i].id_material,
     //     description: materialResult[i].description,
     //     origin: materialResult[i].origin,
-    //     dimension: materialResult[i].dimension,
+    //     weight: materialResult[i].weight,
     //     saler: materialResult[i].saler,
     //     amount: materialResult[i].amount,
     //     price: materialResult[i].price,
@@ -88,7 +88,7 @@ exports.getLastMaterialId = async (req, res) => {
       id_material: `R000${materialAPI.id_material}`,
       description: materialAPI.description,
       origin: materialAPI.origin,
-      dimension: materialAPI.dimension,
+      weight: materialAPI.weight,
       seller: materialAPI.saler,
       amount: materialAPI.amount,
       price: materialAPI.price,
@@ -97,9 +97,9 @@ exports.getLastMaterialId = async (req, res) => {
         name: materialAPI.name_partner,
         percent: materialAPI.percent
       }],
-      id_product: [{
-        k_code: `K000${materialAPI.id_prod}`
-      }],
+      kcode: [
+        `K000${materialAPI.id_prod}`
+      ],
       status: materialAPI.status,
       remark: materialAPI.remark,
       added_timestamp: materialAPI.last_added
@@ -123,85 +123,82 @@ exports.getIdMaterial = async (req, res) => {
     const orderResult = await orderModels.getAllOrder();
     const materialAPI = [];
 
-    for (const i in materialResult) {
-      let materialFormat = {
-        id_material: `R000${materialResult[i].id_material}`,
-        description: materialResult[i].description,
-        origin: materialResult[i].origin,
-        dimension: materialResult[i].dimension,
-        seller: materialResult[i].saler,
-        amount: materialResult[i].amount,
-        price: materialResult[i].price,
-        partner: [{
-          id_partner: materialResult[i].id_partner,
-          name: materialResult[i].name_partner,
-          percent: materialResult[i].percent
-        }],
-        id_product: [{
-          k_code: `K000${materialResult[i].id_prod}`
-        }],
-        status: materialResult[i].status,
-        remark: materialResult[i].remark,
-        added_timestamp: materialResult[i].last_added,
-        Item_K_List: []
-      }
-      for (const j in productResult){
-        if (materialResult[i].id_material == productResult[j].id_material) {
-          materialFormat["Item_K_List"].push({           
-            id_material: `K000${productResult[j].id_prod}`,
-            description: productResult[j].description,
-            Comment: productResult[j].comment,
-            img: productResult[j].url_prod,
-            parent: `R000${productResult[j].id_material}`,
-            origin: productResult[j].origin,
-            recut: productResult[j].id_recut,
-            dimension: productResult[j].dimension,
-            status: productResult[j].status,
-            price: productResult[j].price,
-            interest: productResult[j].interest,
-            decorate: productResult[j].decorate,
-            travel: productResult[j].travel,
-            certificate: productResult[j].certificate,
-            other: productResult[j].other_cost,
-            certificate: [],
-            quotation: [],
-            added_timestamp: productResult[j].last_added
-          })
-          for (const k in certificateResult) {
-            if (productResult[j].id_prod == certificateResult[k].id_prod) {
-                materialFormat["Item_K_List"][j]["certificate"].push({
-                  id_certificate: certificateResult[k].id_certificate,
-                  name: certificateResult[k].name_certificate,
-                  img: certificateResult[k].url_img,
-                  dimension: certificateResult[k].dimension,
-                  weight: certificateResult[k].weight,
-                  color: certificateResult[k].color,
-                  remark: certificateResult[k].remark,
-                  added_timestamp: certificateResult[k].last_added
-              })
-            }
+    let materialFormat = {
+      id_material: `R000${materialResult[0].id_material}`,
+      description: materialResult[0].description,
+      origin: materialResult[0].origin,
+      weight: materialResult[0].weight,
+      seller: materialResult[0].saler,
+      amount: materialResult[0].amount,
+      price: materialResult[0].price,
+      partner: [{
+        id_partner: materialResult[0].id_partner,
+        name: materialResult[0].name_partner,
+        percent: materialResult[0].percent
+      }],
+      kcode: [
+        `K000${materialResult[0].id_prod}`
+      ],
+      status: materialResult[0].status,
+      remark: materialResult[0].remark,
+      added_timestamp: materialResult[0].last_added,
+      Item_K_List: []
+    }
+    for (const j in productResult){
+      if (materialResult[j].id_material == productResult[j].id_material) {
+        materialFormat["Item_K_List"].push({           
+          id_material: `K000${productResult[j].id_prod}`,
+          description: productResult[j].description,
+          Comment: productResult[j].comment,
+          img: productResult[j].url_prod,
+          parent: `R000${productResult[j].id_material}`,
+          origin: productResult[j].origin,
+          recut: productResult[j].id_recut,
+          dimension: productResult[j].dimension,
+          status: productResult[j].status,
+          price: productResult[j].price,
+          interest: productResult[j].interest,
+          decorate: productResult[j].decorate,
+          travel: productResult[j].travel,
+          certificate_cost: productResult[j].certificate,
+          other: productResult[j].other_cost,
+          certificate: [],
+          quotation: [],
+          added_timestamp: productResult[j].last_added
+        })
+        for (const k in certificateResult) {
+          if (productResult.id_prod == certificateResult.id_prod) {
+              materialFormat["Item_K_List"][j]["certificate"].push({
+                id_certificate: certificateResult[k].id_certificate,
+                name: certificateResult[k].name_certificate,
+                img: certificateResult[k].url_img,
+                dimension: certificateResult[k].dimension,
+                weight: certificateResult[k].weight,
+                color: certificateResult[k].color,
+                remark: certificateResult[k].remark,
+                added_timestamp: certificateResult[k].last_added
+            })
           }
-          for (const L in quotationResult) {
-            if (productResult[j].id_prod == orderResult[j].id_prod) {
-              materialFormat["Item_K_List"][j]["quotation"].push({
-                id_quotation: quotationResult[L].id_quotation,
-                id_customer: quotationResult[L].id_customer,
-                name: quotationResult[L].name_customer,
-                phone: quotationResult[L].phone,
-                company: quotationResult[L].company,
-                email: quotationResult[L].email,
-                price: quotationResult[L].price,
-                remark: quotationResult[L].remark,
-                added_timestamp: quotationResult[L].last_added,
-                status: quotationResult[L].status
-              })
-            }
+        }
+        for (const L in quotationResult) {
+          if (productResult.id_prod == orderResult.id_prod) {
+            materialFormat["Item_K_List"][j]["quotation"].push({
+              id_quotation: quotationResult[L].id_quotation,
+              id_customer: quotationResult[L].id_customer,
+              name: quotationResult[L].name_customer,
+              phone: quotationResult[L].phone,
+              company: quotationResult[L].company,
+              email: quotationResult[L].email,
+              price: quotationResult[L].price,
+              remark: quotationResult[L].remark,
+              added_timestamp: quotationResult[L].last_added,
+              status: quotationResult[L].status
+            })
           }
         }
       }
-
-      materialAPI.push(materialFormat)
     }
+    materialAPI.push(materialFormat)
     res.send(materialAPI);
   } catch (error) {
     res.status(400).send({

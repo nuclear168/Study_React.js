@@ -2,7 +2,7 @@ const db = require("../utils/database");
 
 exports.getAllProduct = async () => {
   try {
-    const result = await db.query("SELECT product.id_prod, product.description, product.comment, img_prod.url_img, rawmaterial.id_material, rawmaterial.origin, product.id_recut, product.dimension, product.status, product.price, product.interest, product.decorate, product.travel, product.certificate, product.other_cost, product.last_added FROM product INNER JOIN img_prod ON product.id_prod = img_prod.id_prod INNER JOIN rawmaterial ON product.id_material = rawmaterial.id_material");
+    const result = await db.query("SELECT product.id_prod, product.description, product.comment, img_prod.url_img, rawmaterial.id_material, rawmaterial.origin, product.process, product.code, product.weight, product.id_recut, product.dimension, product.status, product.price, product.interest, product.decorate, product.travel, product.certificate, product.other_cost, product.last_added FROM product INNER JOIN img_prod ON product.id_prod = img_prod.id_prod INNER JOIN rawmaterial ON product.id_material = rawmaterial.id_material");
     return result[0]; //index 0 คือ return result
   } catch (error) {
     throw new Error(`Get all product error: ${error}`);
@@ -12,7 +12,7 @@ exports.getAllProduct = async () => {
 exports.getIdProduct = async (req,res) => {
   try {
     let id = req.params.id;
-    let result = await db.query("SELECT product.id_prod, product.description, product.comment, img_prod.url_img, rawmaterial.id_material, rawmaterial.origin, product.id_recut, product.dimension, product.status, product.price, product.interest, product.decorate, product.travel, product.certificate, product.other_cost, product.last_added FROM product INNER JOIN img_prod ON product.id_prod = img_prod.id_prod INNER JOIN rawmaterial ON product.id_material = rawmaterial.id_material WHERE product.id_prod = ?",[id]);
+    let result = await db.query("SELECT product.id_prod, product.description, product.comment, img_prod.url_img, rawmaterial.id_material, rawmaterial.origin, product.process, product.code, product.weight, product.id_recut, product.dimension, product.status, product.price, product.interest, product.decorate, product.travel, product.certificate, product.other_cost, product.last_added FROM product INNER JOIN img_prod ON product.id_prod = img_prod.id_prod INNER JOIN rawmaterial ON product.id_material = rawmaterial.id_material WHERE product.id_prod = ?",[id]);
     return result[0]; //index 0 คือ return result
   } catch (error) {
     throw new Error(`Get all product error: ${error}`);

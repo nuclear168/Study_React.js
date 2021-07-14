@@ -9,6 +9,7 @@ exports.allPartner = async (req, res) => {
       let partnerFormat = {
         id_partner: partnerResult[i].id_partner,
         name: partnerResult[i].name_partner,
+        company: partnerResult[i].name_company,
         phone: partnerResult[i].phone,
         email: partnerResult[i].email,
         remark: partnerResult[i].remark,
@@ -35,6 +36,7 @@ exports.getIdPartner = async (req, res) => {
       let partnerFormat = {
         id_partner: partnerResult[i].id_partner,
         name: partnerResult[i].name_partner,
+        company: partnerResult[i].name_company,
         phone: partnerResult[i].phone,
         email: partnerResult[i].email,
         remark: partnerResult[i].remark,
@@ -59,6 +61,7 @@ exports.getLastPartnerId = async (req, res) => {
       const partnerFormat = {
         id_partner: lastPartnerResult.id_partner,
         name: lastPartnerResult.name_partner,
+        company: lastPartnerResult.name_company,
         phone: lastPartnerResult.phone,
         email: lastPartnerResult.email,
         remark: lastPartnerResult.remark,

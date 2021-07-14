@@ -105,11 +105,11 @@ exports.putUpdateCustomer = async (req,res) => {
   } 
 }
 
-exports.deleteIdCustomer = async (req,res) => {
+exports.deleteIdCustomer = (req,res) => {
   try {
-    let deleteId_customer = req.params.id;
-    
-    let result = await db.query("DELETE FROM customer WHERE id_customer = ?", [deleteId_customer]);
+    let deleteId_customer = req.body.id_customer;
+    let deleteId_quotation = req.body.id_quotation; 
+    let result = db.query("DELETE FROM customer WHERE id_customer = ?","DELETE FROM quotation WHERE id_customer = ?", [deleteId_quotation], [deleteId_customer]);  
 
     return result[0];
   } catch (error) {

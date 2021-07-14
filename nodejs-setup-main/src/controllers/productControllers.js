@@ -8,20 +8,25 @@ exports.allProduct = async (req, res) => {
     for (const i in productResult) {
       let productFormat = {
         id_material: `K000${productResult[i].id_prod}`,
+        process: productResult[i].process,
         description: productResult[i].description,
-        Comment: productResult[i].comment,
-        img: productResult[i].url_prod,
+        code: productResult[i].code,
+        comment: productResult[i].comment,
+        img: [productResult[i].url_img],
         parent: `R000${productResult[i].id_material}`,
         origin: productResult[i].origin,
         recut: productResult[i].id_recut,
+        weight: productResult[i].weight,
+        status: productResult[i].status,
         dimension: productResult[i].dimension,
-        status: productResult[j].status,
         price: productResult[i].price,
-        interest: productResult[i].interest,
-        decorate: productResult[i].decorate,
-        travel: productResult[i].travel,
-        certificate: productResult[i].certificate,
-        other: productResult[i].other_cost,
+        cost: {
+          interest: productResult[i].interest,
+          decorate: productResult[i].decorate,
+          travel: productResult[i].travel,
+          certificate: productResult[i].certificate,
+          other: productResult[i].other_cost
+        },
         added_timestamp: productResult[i].last_added
       }
       productAPI.push(productFormat)
@@ -44,19 +49,25 @@ exports.getIdProduct = async (req, res) => {
     for (const i in productResult) {
       let productFormat = {
         id_material: `K000${productResult[i].id_prod}`,
+        process: productResult[i].process,
         description: productResult[i].description,
-        Comment: productResult[i].comment,
-        img: productResult[i].url_prod,
+        code: productResult[i].code,
+        comment: productResult[i].comment,
+        img: [productResult[i].url_img],
         parent: `R000${productResult[i].id_material}`,
         origin: productResult[i].origin,
         recut: productResult[i].id_recut,
+        weight: productResult[i].weight,
+        status: productResult[i].status,
         dimension: productResult[i].dimension,
         price: productResult[i].price,
-        interest: productResult[i].interest,
-        decorate: productResult[i].decorate,
-        travel: productResult[i].travel,
-        certificate: productResult[i].certificate,
-        other: productResult[i].other_cost,
+        cost: {
+          interest: productResult[i].interest,
+          decorate: productResult[i].decorate,
+          travel: productResult[i].travel,
+          certificate: productResult[i].certificate,
+          other: productResult[i].other_cost
+        },
         added_timestamp: productResult[i].last_added
       }
       productAPI.push(productFormat)
@@ -77,19 +88,25 @@ exports.getLastProductId = async (req, res) => {
       const lastProductResult = productResult[productResult.length -1];
       const productFormat = {
         id_material: `K000${lastProductResult.id_prod}`,
+        process: lastProductResult.process,
         description: lastProductResult.description,
-        Comment: lastProductResult.comment,
-        img: lastProductResult.url_prod,
+        code: lastProductResult.code,
+        comment: lastProductResult.comment,
+        img: [lastProductResult.url_img],
         parent: `R000${lastProductResult.id_material}`,
         origin: lastProductResult.origin,
         recut: lastProductResult.id_recut,
+        weight: lastProductResult.weight,
+        status: lastProductResult.status,
         dimension: lastProductResult.dimension,
         price: lastProductResult.price,
-        interest: lastProductResult.interest,
-        decorate: lastProductResult.decorate,
-        travel: lastProductResult.travel,
-        certificate: lastProductResult.certificate,
-        other: lastProductResult.other_cost,
+        cost: {
+          interest: lastProductResult.interest,
+          decorate: lastProductResult.decorate,
+          travel: lastProductResult.travel,
+          certificate: lastProductResult.certificate,
+          other: lastProductResult.other_cost
+        },
         added_timestamp: lastProductResult.last_added
       }
 

@@ -4,7 +4,7 @@ exports.getAllMaterial = async () => {
   try {//ให้ลองทำอะไรบางอย่าง excute เพื่อต้องการ result ที่ต้องการออกมา
     
     // const result = await db.query("SELECT * FROM rawmaterial");
-    const result = await db.query("SELECT rawmaterial.id_material, rawmaterial.description, rawmaterial.origin, rawmaterial.dimension, rawmaterial.saler, rawmaterial.amount, rawmaterial.price, partner_material.id_partner, partner.name_partner, partner_material.percent, product.id_prod, rawmaterial.status, product.remark, rawmaterial.last_added FROM rawmaterial JOIN partner_material ON rawmaterial.id_material = partner_material.id_material JOIN product ON rawmaterial.id_material = product.id_material JOIN partner ON partner_material.id_partner = partner.id_partner");
+    const result = await db.query("SELECT rawmaterial.id_material, rawmaterial.description, rawmaterial.origin, rawmaterial.weight, rawmaterial.saler, rawmaterial.amount, rawmaterial.price, rawmaterial.remark, partner_material.id_partner, partner.name_partner, partner_material.percent, product.id_prod, rawmaterial.status, rawmaterial.last_added FROM rawmaterial JOIN partner_material ON rawmaterial.id_material = partner_material.id_material JOIN product ON rawmaterial.id_material = product.id_material JOIN partner ON partner_material.id_partner = partner.id_partner");
 
     return result[0]; //index 0 คือ return result
   } catch (error) {
@@ -18,7 +18,7 @@ exports.getAllMaterial = async () => {
 exports.getIdMaterial = async (req,res) => {
   try {
     let id = req.params.id;
-    let result = await db.query("SELECT rawmaterial.id_material, rawmaterial.description, rawmaterial.origin, rawmaterial.dimension, rawmaterial.saler, rawmaterial.amount, rawmaterial.price, partner_material.id_partner, partner.name_partner, partner_material.percent, product.id_prod, rawmaterial.status, product.remark, rawmaterial.last_added FROM rawmaterial JOIN partner_material ON rawmaterial.id_material = partner_material.id_material JOIN product ON rawmaterial.id_material = product.id_material JOIN partner ON partner_material.id_partner = partner.id_partner WHERE rawmaterial.id_material = ?",[id]);
+    let result = await db.query("SELECT rawmaterial.id_material, rawmaterial.description, rawmaterial.origin, rawmaterial.weight, rawmaterial.saler, rawmaterial.amount, rawmaterial.price, rawmaterial.remark, partner_material.id_partner, partner.name_partner, partner_material.percent, product.id_prod, rawmaterial.status, rawmaterial.last_added FROM rawmaterial JOIN partner_material ON rawmaterial.id_material = partner_material.id_material JOIN product ON rawmaterial.id_material = product.id_material JOIN partner ON partner_material.id_partner = partner.id_partner WHERE rawmaterial.id_material = ?",[id]);
     return result[0]; //index 0 คือ return result
   } catch (error) {
     throw new Error(`Get all material error: ${error}`); 

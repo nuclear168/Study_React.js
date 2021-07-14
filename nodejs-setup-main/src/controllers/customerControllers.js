@@ -29,7 +29,20 @@ exports.allCustomer = async (req, res) => {
 exports.getIdCustomer = async (req, res) => {
   try {
     const customerResult = await customerModels.getIdCustomer(req);
-    res.send(customerResult);
+    let customer = [];
+
+    for (const i in customerResult) {
+      let customerFormat = {
+        id_customer: customerResult[i].id_customer,
+        name: customerResult[i].name_customer,
+        phone: customerResult[i].phone,
+        company: customerResult[i].name_company,
+        email: customerResult[i].email,
+        added_timestamp: customerResult[i].last_added 
+      }
+      customer.push(customerFormat)
+    }
+    res.send(customer);
   } catch (error) {
     res.status(400).send({
       status: "error",
@@ -41,7 +54,21 @@ exports.getIdCustomer = async (req, res) => {
 exports.getNameCompany = async (req, res) => {
   try {
     const companyResult = await customerModels.getNameCompany(req);
-    res.send(companyResult);
+    let customer = [];
+
+    
+    for (const i in companyResult) {
+      let customerFormat = {
+        id_customer: companyResult[i].id_customer,
+        name: companyResult[i].name_customer,
+        phone: companyResult[i].phone,
+        company: companyResult[i].name_company,
+        email: companyResult[i].email,
+        added_timestamp: companyResult[i].last_added 
+      }
+      customer.push(customerFormat)
+    }    
+    res.send(customer);
   } catch (error) {
     res.status(400).send({
       status: "error",

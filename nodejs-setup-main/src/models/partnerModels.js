@@ -2,7 +2,7 @@ const db = require("../utils/database");
 
 exports.getAllPartner = async () => {
   try {
-    const result = await db.query("SELECT partner.id_partner, partner.name_partner, partner.phone, partner.remark, partner.email, partner.last_added FROM partner");
+    const result = await db.query("SELECT partner.id_partner, partner.name_partner, partner.name_company, partner.phone, partner.remark, partner.email, partner.last_added FROM partner");
     return result[0]; //index 0 คือ return result
   } catch (error) {
     throw new Error(`Get all partner error: ${error}`);
@@ -12,7 +12,7 @@ exports.getAllPartner = async () => {
 exports.getIdPartner = async (req,res) => {
   try {
     let id = req.params.id;
-    let result = await db.query("SELECT partner.id_partner, partner.name_partner, partner.phone, partner.remark, partner.email, partner.last_added FROM partner WHERE id_partner = ?",[id]);
+    let result = await db.query("SELECT partner.id_partner, partner.name_partner, partner.name_company, partner.phone, partner.remark, partner.email, partner.last_added FROM partner WHERE id_partner = ?",[id]);
     return result[0]; //index 0 คือ return result
   } catch (error) {
     throw new Error(`Get all partner error: ${error}`);
